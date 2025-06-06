@@ -130,7 +130,6 @@ def create_supervised_evaluator(model, metrics,
 
     return engine
 
-
 def do_train(
         cfg,
         model,
@@ -153,7 +152,8 @@ def do_train(
     logger.info("Start training")
     trainer = create_supervised_trainer(model, optimizer, loss_fn, device=device)
     evaluator = create_supervised_evaluator(model, metrics={'r1_mAP': R1_mAP(num_query, max_rank=50, feat_norm=cfg.TEST.FEAT_NORM)}, device=device)
-    checkpointer = ModelCheckpoint(output_dir, cfg.MODEL.NAME, checkpoint_period, n_saved=10, require_empty=False)
+    score_function = lambda engine: engine.state.metrics['avg_acc']
+    checkpointer = ModelCheckpoint(output_dir, cfg.MODEL.NAME, score_function, n_saved=10, require_empty=False)
     timer = Timer(average=True)
 
     trainer.add_event_handler(Events.EPOCH_COMPLETED, checkpointer, {'model': model,

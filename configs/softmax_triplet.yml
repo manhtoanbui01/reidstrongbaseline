@@ -1,10 +1,9 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: '/home/haoluo/.torch/models/resnet50-19c8e357.pth'
+  PRETRAIN_PATH: '/home/toan/.cache/torch/hub/checkpoints/resnet50-0676ba61.pth'
   METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'on'
   IF_WITH_CENTER: 'no'
-
 
 
 
@@ -16,7 +15,8 @@ INPUT:
   PADDING: 10
 
 DATASETS:
-  NAMES: ('market1501')
+  NAMES: ('nightreid_market1501')
+  ROOT_DIR: ('/mnt/disk1/data/NightReID_Market1501x3')
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -53,15 +53,15 @@ SOLVER:
 
   CHECKPOINT_PERIOD: 40
   LOG_PERIOD: 20
-  EVAL_PERIOD: 40
+  EVAL_PERIOD: 20
 
 TEST:
-  IMS_PER_BATCH: 128
+  IMS_PER_BATCH: 64
   RE_RANKING: 'no'
   WEIGHT: "path"
   NECK_FEAT: 'after'
   FEAT_NORM: 'yes'
 
-OUTPUT_DIR: "/home/haoluo/log/gu/reid_baseline_review/Opensource_test/market1501/Experiment-all-tricks-256x128-bs16x4-warmup10-erase0_5-labelsmooth_on-laststride1-bnneck_on"
+OUTPUT_DIR: "./results/night600_market1501_x3"
 
 

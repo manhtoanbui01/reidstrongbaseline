@@ -1,9 +1,3 @@
-# encoding: utf-8
-"""
-@author:  sherlock
-@contact: sherlockliao01@gmail.com
-"""
-
 import argparse
 import os
 import sys
@@ -28,7 +22,11 @@ def train(cfg):
 
     # prepare model
     model = build_model(cfg, num_classes)
-
+    pretrain_path = "results/market1501_lowlight/resnet50_checkpoint_0.9983.pt"
+    checkpoint = torch.load(pretrain_path)
+    state_dict = checkpoint['model']
+    state_dict = {k: v for k, v in state_dict.items() if not k.startswith('classifier.')}
+    model.load_state_dict(state_dict, strict=False)
     if cfg.MODEL.IF_WITH_CENTER == 'no':
         print('Train without center loss, the loss type is', cfg.MODEL.METRIC_LOSS_TYPE)
         optimizer = make_optimizer(cfg, model)

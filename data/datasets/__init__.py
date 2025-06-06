@@ -6,9 +6,13 @@
 # from .cuhk03 import CUHK03
 from .dukemtmcreid import DukeMTMCreID
 from .market1501 import Market1501
+from .night600 import Night600
 from .msmt17 import MSMT17
 from .veri import VeRi
 from .dataset_loader import ImageDataset
+from .nightreid import NightReID
+from .nightreid_plus_market1501 import NightReID_Market1501
+from .night600_plus_market1501 import Night600_Market1501
 
 __factory = {
     'market1501': Market1501,
@@ -16,6 +20,10 @@ __factory = {
     'dukemtmc': DukeMTMCreID,
     'msmt17': MSMT17,
     'veri': VeRi,
+    'night600': Night600,
+    'nightreid': NightReID,
+    'nightreid_market1501': NightReID_Market1501,
+    'night600_market1501': Night600_Market1501
 }
 
 
